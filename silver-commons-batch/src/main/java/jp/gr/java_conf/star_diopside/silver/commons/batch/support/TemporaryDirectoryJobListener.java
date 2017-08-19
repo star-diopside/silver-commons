@@ -11,30 +11,27 @@ import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.InitializingBean;
 
+import jp.gr.java_conf.star_diopside.silver.commons.support.file.DeleteDirectoryVisitor;
 import lombok.Setter;
 
 /**
- * 一時ファイルを生成する{@link JobExecutionListener}
+ * 一時ディレクトリを生成する{@link JobExecutionListener}
  */
-public class TemporaryFileJobListener implements JobExecutionListener, InitializingBean {
+public class TemporaryDirectoryJobListener implements JobExecutionListener, InitializingBean {
 
-    /** 生成した一時ファイル名をExecutionContextに格納するキー */
+    /** 生成した一時ディレクトリ名をExecutionContextに格納するキー */
     @Setter
     private String key;
 
-    /** 一時ファイル名の接頭辞文字列 */
+    /** 一時ディレクトリ名の接頭辞文字列 */
     @Setter
     private String prefix;
 
-    /** 一時ファイル名の接尾辞文字列 */
-    @Setter
-    private String suffix;
-
-    /** 一時ファイルを生成するディレクトリ */
+    /** 一時ディレクトリを生成するディレクトリ */
     @Setter
     private String directory;
 
-    /** 終了時に一時ファイルを削除するかを示すフラグ */
+    /** 終了時に一時ディレクトリを削除するかを示すフラグ */
     @Setter
     private boolean deleteOnExit = true;
 
@@ -48,9 +45,9 @@ public class TemporaryFileJobListener implements JobExecutionListener, Initializ
     @Override
     public void beforeJob(JobExecution jobExecution) {
         try {
-            Path tempFile = (directory == null ? Files.createTempFile(prefix, suffix)
-                    : Files.createTempFile(Paths.get(directory), prefix, suffix));
-            jobExecution.getExecutionContext().putString(key, tempFile.toString());
+            Path tempDir = (directory == null ? Files.createTempDirectory(prefix)
+                    : Files.createTempDirectory(Paths.get(directory), prefix));
+            jobExecution.getExecutionContext().putString(key, tempDir.toString());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -61,9 +58,9 @@ public class TemporaryFileJobListener implements JobExecutionListener, Initializ
         if (!deleteOnExit) {
             return;
         }
-        Path tempFile = Paths.get(jobExecution.getExecutionContext().getString(key));
+        Path tempDir = Paths.get(jobExecution.getExecutionContext().getString(key));
         try {
-            Files.delete(tempFile);
+            Files.walkFileTree(tempDir, new DeleteDirectoryVisitor());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

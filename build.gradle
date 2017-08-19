@@ -101,7 +101,6 @@ project(":silver-commons-batch") {
     dependencies {
         compile project(":silver-commons-core")
         compile "org.springframework.batch:spring-batch-core"
-        compile "commons-io:commons-io"
     }
 }
 
