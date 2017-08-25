@@ -8,8 +8,8 @@ import java.nio.file.Paths;
 
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobExecutionListener;
-import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
 import jp.gr.java_conf.star_diopside.silver.commons.support.file.DeleteDirectoryVisitor;
 import lombok.Setter;
@@ -37,9 +37,7 @@ public class TemporaryDirectoryJobListener implements JobExecutionListener, Init
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        if (key == null) {
-            throw new BeanInitializationException("Property 'key' is required.");
-        }
+        Assert.notNull(key, "Property 'key' is required.");
     }
 
     @Override
