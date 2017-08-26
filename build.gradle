@@ -104,12 +104,6 @@ project(":silver-commons-batch") {
     }
 }
 
-project(":silver-commons-data") {
-    dependencies {
-        compileOnly "org.eclipse.persistence:javax.persistence"
-    }
-}
-
 project(":silver-commons-web") {
     dependencies {
         compile "org.springframework:spring-web"

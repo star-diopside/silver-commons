@@ -2,14 +2,13 @@ package jp.gr.java_conf.star_diopside.silver.commons.support.file;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 /**
- * 再帰的にディレクトリの削除を行う{@link FileVisitor}クラス
+ * 再帰的にディレクトリの削除を行うFileVisitor実装クラス
  */
 public class DeleteDirectoryVisitor extends SimpleFileVisitor<Path> {
 

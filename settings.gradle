@@ -2,6 +2,5 @@ rootProject.name = "silver-commons"
 
 include ":silver-commons-core"
 include ":silver-commons-batch"
-include ":silver-commons-data"
 include ":silver-commons-web"
 include ":silver-commons-test"
