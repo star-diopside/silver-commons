@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import jp.gr.java_conf.stardiopside.silver.commons.core.exception.UncheckedReflectiveOperationException;
 
 /**
@@ -114,7 +112,7 @@ public interface Loggable {
             throws IllegalAccessException {
         LoggingSetting setting = field.getDeclaredAnnotation(LoggingSetting.class);
         if (setting == null) {
-            return Optional.of(Pair.of(field.getName(), field.get(obj)));
+            return Optional.of(Map.entry(field.getName(), field.get(obj)));
         } else {
             return setting.value().getLoggingObject(setting, field, obj);
         }

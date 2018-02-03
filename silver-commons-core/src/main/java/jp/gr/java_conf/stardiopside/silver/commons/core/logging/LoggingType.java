@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Pair;
 
 /**
  * {@link Loggable} デフォルト実装でのパラメータのログ出力タイプを指定する列挙体
@@ -22,7 +21,7 @@ public enum LoggingType {
         @Override
         Optional<Map.Entry<String, Object>> getLoggingObject(LoggingSetting setting, Field field, Object obj)
                 throws IllegalAccessException {
-            return Optional.of(Pair.of(getKey(setting, field), field.get(obj)));
+            return Optional.of(Map.entry(getKey(setting, field), field.get(obj)));
         }
     },
 
@@ -44,7 +43,7 @@ public enum LoggingType {
         @Override
         Optional<Map.Entry<String, Object>> getLoggingObject(LoggingSetting setting, Field field, Object obj)
                 throws IllegalAccessException {
-            return Optional.of(Pair.of(getKey(setting, field), setting.protectValue()));
+            return Optional.of(Map.entry(getKey(setting, field), setting.protectValue()));
         }
     },
 
@@ -55,7 +54,7 @@ public enum LoggingType {
         @Override
         Optional<Map.Entry<String, Object>> getLoggingObject(LoggingSetting setting, Field field, Object obj)
                 throws IllegalAccessException {
-            return Optional.of(Pair.of(getKey(setting, field), isPresent(obj) ? setting.protectValue() : obj));
+            return Optional.of(Map.entry(getKey(setting, field), isPresent(obj) ? setting.protectValue() : obj));
         }
 
         private boolean isPresent(Object obj) {
