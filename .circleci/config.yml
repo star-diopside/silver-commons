@@ -5,5 +5,9 @@ jobs:
       - image: circleci/openjdk:9-jdk-browsers
     steps:
       - checkout
-      - run: ./gradlew dependencies
-      - run: ./gradlew test
+      - run:
+          name: gradle dependencies
+          command: ./gradlew dependencies
+      - run:
+          name: gradle test
+          command: ./gradlew test

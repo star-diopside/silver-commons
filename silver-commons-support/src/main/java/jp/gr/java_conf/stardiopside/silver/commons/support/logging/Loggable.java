@@ -1,4 +1,4 @@
-package jp.gr.java_conf.stardiopside.silver.commons.core.logging;
+package jp.gr.java_conf.stardiopside.silver.commons.support.logging;
 
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Array;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import jp.gr.java_conf.stardiopside.silver.commons.core.exception.UncheckedReflectiveOperationException;
+import jp.gr.java_conf.stardiopside.silver.commons.support.exception.UncheckedReflectiveOperationException;
 
 /**
  * ログ出力情報取得機能を持つクラスが実装するインタフェース

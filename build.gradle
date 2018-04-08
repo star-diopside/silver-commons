@@ -32,14 +32,15 @@ subprojects {
     sourceCompatibility = 9
     targetCompatibility = 9
 
-    ext["lombok.version"] = "1.16.20"
-
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
     }
 
     repositories {
         jcenter()
+        maven {
+            url "https://repo.spring.io/libs-snapshot"
+        }
     }
 
     dependencies {
@@ -48,7 +49,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "io.spring.platform:platform-bom:Brussels-SR6"
+            mavenBom "io.spring.platform:platform-bom:Cairo-RC1"
         }
     }
 
@@ -95,7 +96,7 @@ subprojects {
     }
 }
 
-project(":silver-commons-core") {
+project(":silver-commons-support") {
     dependencies {
         compile "org.springframework:spring-aop"
         compile "org.apache.commons:commons-lang3"
@@ -105,13 +106,14 @@ project(":silver-commons-core") {
 
 project(":silver-commons-batch") {
     dependencies {
-        compile project(":silver-commons-core")
+        compile project(":silver-commons-support")
         compile "org.springframework.batch:spring-batch-core"
     }
 }
 
 project(":silver-commons-web") {
     dependencies {
+        compile "org.springframework:spring-context"
         compile "org.springframework:spring-web"
         compile "org.apache.commons:commons-lang3"
         compileOnly "javax.servlet:javax.servlet-api"

@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = { MultipartFileRequiredValidator.class })
 public @interface MultipartFileRequired {
 
-    String message() default "{jp.gr.java_conf.star_diopside.silver.commons.web.validation.constraints.multipart.MultipartFileRequired.message}";
+    String message() default "{jp.gr.java_conf.stardiopside.silver.commons.web.validation.constraints.multipart.MultipartFileRequired.message}";
 
     Class<?>[] groups() default {};
 

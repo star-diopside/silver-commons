@@ -1,4 +1,4 @@
-package jp.gr.java_conf.stardiopside.silver.commons.core.exception;
+package jp.gr.java_conf.stardiopside.silver.commons.support.exception;
 
 import java.util.Objects;
 

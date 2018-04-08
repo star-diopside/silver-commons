@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = { MultipartFileNotEmptyValidator.class })
 public @interface MultipartFileNotEmpty {
 
-    String message() default "{jp.gr.java_conf.star_diopside.silver.commons.web.validation.constraints.multipart.MultipartFileNotEmpty.message}";
+    String message() default "{jp.gr.java_conf.stardiopside.silver.commons.web.validation.constraints.multipart.MultipartFileNotEmpty.message}";
 
     Class<?>[] groups() default {};
 

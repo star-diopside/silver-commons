@@ -1,4 +1,4 @@
-package jp.gr.java_conf.stardiopside.silver.commons.core.logging;
+package jp.gr.java_conf.stardiopside.silver.commons.support.logging;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

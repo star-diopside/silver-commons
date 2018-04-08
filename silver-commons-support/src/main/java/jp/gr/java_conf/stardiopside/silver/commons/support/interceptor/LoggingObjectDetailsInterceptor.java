@@ -1,9 +1,9 @@
-package jp.gr.java_conf.stardiopside.silver.commons.core.interceptor;
+package jp.gr.java_conf.stardiopside.silver.commons.support.interceptor;
 
 import java.util.stream.Stream;
 
-import jp.gr.java_conf.stardiopside.silver.commons.core.logging.Loggable;
-import jp.gr.java_conf.stardiopside.silver.commons.core.logging.LoggingParameter;
+import jp.gr.java_conf.stardiopside.silver.commons.support.logging.Loggable;
+import jp.gr.java_conf.stardiopside.silver.commons.support.logging.LoggingParameter;
 
 /**
  * オブジェクトの詳細情報をログに出力するインターセプター

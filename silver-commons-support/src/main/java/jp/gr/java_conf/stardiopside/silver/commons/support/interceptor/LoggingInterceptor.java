@@ -1,4 +1,4 @@
-package jp.gr.java_conf.stardiopside.silver.commons.core.interceptor;
+package jp.gr.java_conf.stardiopside.silver.commons.support.interceptor;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -506,7 +506,7 @@ public class LoggingInterceptor extends AbstractTraceInterceptor {
             return message;
         }
 
-        StringBuffer output = new StringBuffer();
+        StringBuilder output = new StringBuilder();
         Matcher matcher = PATTERN_PLACEHOLDER.matcher(message);
 
         while (matcher.find()) {
