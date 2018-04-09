@@ -1,0 +1,130 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.0.RELEASE"
+        classpath "gradle.plugin.com.github.spotbugs:gradlePlugin:1.6.0"
+    }
+}
+
+allprojects {
+    group = "jp.gr.java_conf.stardiopside.silver.commons"
+    version = "1.0.0"
+
+    ext {
+        dbunitVersion = "2.5.3"
+    }
+}
+
+subprojects {
+    apply plugin: "java"
+    apply plugin: "maven"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "checkstyle"
+    apply plugin: "com.github.spotbugs"
+    apply plugin: "jacoco"
+
+    sourceCompatibility = 9
+    targetCompatibility = 9
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok"
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "io.spring.platform:platform-bom:Cairo-RELEASE"
+        }
+    }
+
+    javadoc {
+        options.charSet = "UTF-8"
+        options.encoding = "UTF-8"
+    }
+
+    checkstyle {
+        toolVersion = "8.7"
+        configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+        ignoreFailures = true
+    }
+
+    spotbugs {
+        toolVersion = "3.1.1"
+        ignoreFailures = true
+    }
+
+    tasks.withType(FindBugs) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
+    }
+
+    jacoco {
+        toolVersion = "0.8.0"
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = "sources"
+        from sourceSets.main.allSource
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = "javadoc"
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives sourcesJar
+        archives javadocJar
+    }
+}
+
+project(":silver-commons-support") {
+    dependencies {
+        compile "org.springframework:spring-aop"
+        compile "org.apache.commons:commons-lang3"
+        compileOnly "org.slf4j:jcl-over-slf4j"
+    }
+}
+
+project(":silver-commons-batch") {
+    dependencies {
+        compile project(":silver-commons-support")
+        compile "org.springframework.batch:spring-batch-core"
+    }
+}
+
+project(":silver-commons-web") {
+    dependencies {
+        compile "org.springframework:spring-context"
+        compile "org.springframework:spring-web"
+        compile "org.apache.commons:commons-lang3"
+        compileOnly "javax.servlet:javax.servlet-api"
+        compileOnly "javax.validation:validation-api"
+    }
+}
+
+project(":silver-commons-test") {
+    dependencies {
+        compile "junit:junit"
+        compile "org.hamcrest:hamcrest-library"
+        compile "org.dbunit:dbunit:${dbunitVersion}"
+        compile "org.springframework:spring-test"
+        compile "org.springframework:spring-tx"
+        testCompile "ch.qos.logback:logback-classic"
+    }
+}
