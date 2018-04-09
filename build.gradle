@@ -14,7 +14,7 @@ buildscript {
 
 allprojects {
     group = "jp.gr.java_conf.stardiopside.silver.commons"
-    version = "1.0.0-SNAPSHOT"
+    version = "1.0.0"
 
     ext {
         dbunitVersion = "2.5.3"
@@ -38,9 +38,6 @@ subprojects {
 
     repositories {
         jcenter()
-        maven {
-            url "https://repo.spring.io/libs-snapshot"
-        }
     }
 
     dependencies {
@@ -49,7 +46,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "io.spring.platform:platform-bom:Cairo-RC1"
+            mavenBom "io.spring.platform:platform-bom:Cairo-RELEASE"
         }
     }
 
