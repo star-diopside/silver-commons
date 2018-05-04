@@ -14,7 +14,7 @@ buildscript {
 
 allprojects {
     group = "jp.gr.java_conf.stardiopside.silver.commons"
-    version = "1.0.0"
+    version = "1.0.1"
 
     ext {
         dbunitVersion = "2.5.3"

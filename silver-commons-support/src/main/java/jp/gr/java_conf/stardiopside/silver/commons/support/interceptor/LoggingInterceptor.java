@@ -343,6 +343,11 @@ public class LoggingInterceptor extends AbstractTraceInterceptor {
         }
     }
 
+    @Override
+    protected boolean isInterceptorEnabled(MethodInvocation invocation, Log logger) {
+        return true;
+    }
+
     /**
      * 開始ログを出力する。
      * 
