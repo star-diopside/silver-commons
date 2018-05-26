@@ -33,7 +33,8 @@ public interface Loggable {
                     getLoggingObject(field, this)
                             .ifPresent(entry -> addLog(builder, className + "." + entry.getKey(), entry.getValue()));
                 }
-            } while ((clazz = clazz.getSuperclass()) != null);
+                clazz = clazz.getSuperclass();
+            } while (clazz != null);
         } catch (IllegalAccessException e) {
             throw new UncheckedReflectiveOperationException(e);
         }
