@@ -54,14 +54,15 @@ public enum LoggingType {
         @Override
         Optional<Map.Entry<String, Object>> getLoggingObject(LoggingSetting setting, Field field, Object obj)
                 throws IllegalAccessException {
-            return Optional.of(Map.entry(getKey(setting, field), isPresent(obj) ? setting.protectValue() : obj));
+            Object value = field.get(obj);
+            return Optional.of(Map.entry(getKey(setting, field), isPresent(value) ? setting.protectValue() : value));
         }
 
-        private boolean isPresent(Object obj) {
-            if (obj == null) {
+        private boolean isPresent(Object value) {
+            if (value == null) {
                 return false;
-            } else if (obj instanceof String) {
-                return ((String) obj).length() > 0;
+            } else if (value instanceof String) {
+                return ((String) value).length() > 0;
             } else {
                 return true;
             }

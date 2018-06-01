@@ -30,7 +30,7 @@ public interface Loggable {
                 Field[] fields = clazz.getDeclaredFields();
                 AccessibleObject.setAccessible(fields, true);
                 for (Field field : fields) {
-                    getLoggingObject(field, this)
+                    getLoggingObject(field)
                             .ifPresent(entry -> addLog(builder, className + "." + entry.getKey(), entry.getValue()));
                 }
                 clazz = clazz.getSuperclass();
@@ -105,17 +105,15 @@ public interface Loggable {
      * ログ出力フィールド情報を取得する。
      * 
      * @param field ログ出力フィールド
-     * @param obj ログ出力オブジェクト
      * @return ログ出力フィールドのキー名と値を格納する{@link Map.Entry} (ログ出力を行わない場合はEMPTYを返す。)
      * @throws IllegalAccessException ログ出力フィールドにアクセスできない場合
      */
-    private static Optional<Map.Entry<String, Object>> getLoggingObject(Field field, Object obj)
-            throws IllegalAccessException {
+    private Optional<Map.Entry<String, Object>> getLoggingObject(Field field) throws IllegalAccessException {
         LoggingSetting setting = field.getDeclaredAnnotation(LoggingSetting.class);
         if (setting == null) {
-            return Optional.of(Map.entry(field.getName(), field.get(obj)));
+            return Optional.of(Map.entry(field.getName(), field.get(this)));
         } else {
-            return setting.value().getLoggingObject(setting, field, obj);
+            return setting.value().getLoggingObject(setting, field, this);
         }
     }
 }
