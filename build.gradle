@@ -10,6 +10,8 @@ allprojects {
     ext {
         dbunitVersion = "2.5.3"
     }
+
+    ext["lombok.version"] = "1.16.22"
 }
 
 subprojects {
@@ -20,8 +22,8 @@ subprojects {
     apply plugin: "com.github.spotbugs"
     apply plugin: "jacoco"
 
-    sourceCompatibility = 9
-    targetCompatibility = 9
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
 
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
@@ -45,6 +47,7 @@ subprojects {
     javadoc {
         options.charSet = "UTF-8"
         options.encoding = "UTF-8"
+        options.addBooleanOption("html5", true)
     }
 
     checkstyle {
