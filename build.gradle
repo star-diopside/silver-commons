@@ -1,6 +1,6 @@
 plugins {
-    id "io.spring.dependency-management" version "1.0.5.RELEASE"
-    id "com.github.spotbugs" version "1.6.1"
+    id "org.springframework.boot" version "2.1.0.RELEASE" apply false
+    id "com.github.spotbugs" version "1.6.5"
 }
 
 allprojects {
@@ -10,8 +10,6 @@ allprojects {
     ext {
         dbunitVersion = "2.5.3"
     }
-
-    ext["lombok.version"] = "1.16.22"
 }
 
 subprojects {
@@ -40,7 +38,7 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom "io.spring.platform:platform-bom:Cairo-RELEASE"
+            mavenBom org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES
         }
     }
 
@@ -51,13 +49,13 @@ subprojects {
     }
 
     checkstyle {
-        toolVersion = "8.10"
+        toolVersion = "8.14"
         configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
         ignoreFailures = true
     }
 
     spotbugs {
-        toolVersion = "3.1.3"
+        toolVersion = "3.1.8"
         ignoreFailures = true
     }
 
@@ -69,7 +67,7 @@ subprojects {
     }
 
     jacoco {
-        toolVersion = "0.8.1"
+        toolVersion = "0.8.2"
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
