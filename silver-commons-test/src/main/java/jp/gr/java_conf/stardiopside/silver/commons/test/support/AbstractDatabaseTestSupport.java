@@ -1,45 +1,52 @@
 package jp.gr.java_conf.stardiopside.silver.commons.test.support;
 
-import java.sql.SQLException;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
-import org.apache.commons.collections.MapUtils;
+import jp.gr.java_conf.stardiopside.silver.commons.test.exception.TestException;
+import jp.gr.java_conf.stardiopside.silver.commons.test.util.DataSetUtils;
+import jp.gr.java_conf.stardiopside.silver.commons.test.util.TestUtils;
 import org.dbunit.DatabaseUnitException;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ReplacementDataSet;
 
-import jp.gr.java_conf.stardiopside.silver.commons.test.exception.TestException;
-import jp.gr.java_conf.stardiopside.silver.commons.test.util.DataSetUtils;
-import jp.gr.java_conf.stardiopside.silver.commons.test.util.TestUtils;
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.Map;
 
 /**
  * データベースを使用するテストをサポートする機能のベースを実装する抽象クラス
  */
 public abstract class AbstractDatabaseTestSupport implements DatabaseTestSupport {
 
-    /** テストクラスのインスタンス */
+    /**
+     * テストクラスのインスタンス
+     */
     private Object tester;
 
-    /** データソース */
+    /**
+     * データソース
+     */
     private DataSource dataSource;
 
-    /** テストデータセット */
+    /**
+     * テストデータセット
+     */
     private IDataSet dataSet;
 
-    /** オブジェクト置換マップ */
+    /**
+     * オブジェクト置換マップ
+     */
     private Map<?, ?> replacementObjectMap;
 
-    /** 文字列置換マップ */
+    /**
+     * 文字列置換マップ
+     */
     private Map<String, String> replacementSubstringMap;
 
     /**
      * コンストラクタ
-     * 
-     * @param tester テストクラスのインスタンス
+     *
+     * @param tester     テストクラスのインスタンス
      * @param dataSource データソース
      */
     protected AbstractDatabaseTestSupport(Object tester, DataSource dataSource) {
@@ -49,7 +56,7 @@ public abstract class AbstractDatabaseTestSupport implements DatabaseTestSupport
 
     /**
      * データソースを取得する。
-     * 
+     *
      * @return データソース
      */
     public DataSource getDataSource() {
@@ -60,7 +67,8 @@ public abstract class AbstractDatabaseTestSupport implements DatabaseTestSupport
     public IDataSet getDataSet() {
         if (dataSet == null) {
             return null;
-        } else if (MapUtils.isEmpty(replacementObjectMap) && MapUtils.isEmpty(replacementSubstringMap)) {
+        } else if ((replacementObjectMap == null || replacementObjectMap.isEmpty())
+                && (replacementSubstringMap == null || replacementSubstringMap.isEmpty())) {
             return dataSet;
         } else {
             return new ReplacementDataSet(dataSet, replacementObjectMap, replacementSubstringMap);
